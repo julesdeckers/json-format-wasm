@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON-FORMATTER</title>
+    <script src="wasm_exec.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("json.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <label for="input">Input</label>
+        <textarea class="input_json" name="input_json" id="input" cols="30" rows="10">{"website":"golangbot.com", "tutorials": {"string":"https://golangbot.com/strings/"}}</textarea>
+    </div>
+    <div>
+        <input class="format-select" type="button" value="format">
+    </div>
+    <div>
+        <h2>Output</h2>
+        <pre class="output"></pre>
+    </div>
+    <script>
+        const init = () => {
+            document.querySelector(".format-select").addEventListener("click", handleChange);
+        }
+
+        const handleChange = e => {
+            const input = document.querySelector(".input_json");
+            const output = document.querySelector(".output");
+            const value = formatJSON(input.value);
+            output.textContent = value;
+        }
+
+
+        init();
+    </script>
+</body>
+
+</html>
