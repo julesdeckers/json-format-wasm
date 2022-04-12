@@ -10,4 +10,4 @@ cd cmd/server
 go run main.go
 ```
 
-(link)[https://golangbot.com/webassembly-using-go/]
+[link](https://golangbot.com/webassembly-using-go/)
